@@ -81,9 +81,34 @@ curl -L https://install.pivpn.io | bash
   -Since the Wireguard port is exposed to the internet, we want to ensure that the latest patches are installed at all times.  
 11. Lastly, reboot the Pi when prompted.  
 
+### 3. Generating and Configuring VPN Client Profiles.
+In order for a client device to connect to the VPN server, it must have a WireGuard client configuration profile. PiVPN provides a built-in utility to generate these profiles for individual client devices.  
+#### 3.1 Generate a Client Configuration Profile
+1. On the Raspberry Pi VPN server, execute the following command to generate a new client profile:  
+```bash
+pivpn add
+```
+2. When prompted, enter a name for the client profile. This name will be used to identify the individual device within the PiVPN server configuration.  
+3. Once the profile has been generated, PiVPN will create a WireGuard configuration file containing the settings required for the client device to establish a VPN connection.
+<img width="891" height="340" alt="image" src="https://github.com/user-attachments/assets/3644c92c-b8af-4bc7-bfa5-6ef8b9961a96" />
 
 
-### 3. Created a WireGuard client profile.
+#### 3.2 Transfer the Client Configuration  
+After generating the client profile, transfer the configuration file to the intended client device using a secure file-transfer method.  
+  
+ - Security Consideration: The WireGuard configuration file contains cryptographic credentials, including the client's private key. Treat this file as sensitive information   and avoid sharing it through unsecured channels or storing it in publicly accessible locations.
+
+To transfer the conf file from the PiVPN server to my current machine, I used scp given that we are transferring sensitive material over the network (even though the network we're setting up a vpn for is most likely a trusted network, its still good practice).  
+
+<img width="1182" height="75" alt="image" src="https://github.com/user-attachments/assets/49f6d324-41af-4c68-b6b5-727bbdf190ee" />  
+
+#### 3.3 Import the configuration file into WireGuard  
+1. Install and open the WireGuard application on the client device.  
+2. Select the option to import a tunnel from a file.  
+3. Locate and select the previously transferred WireGuard configuration file.  
+4. Once imported, the VPN tunnel will appear within the WireGuard application and can be enabled when needed.
+
+  
 ### 4. Configured router port forwarding.
 ### 5. Established a remote VPN connection.
 ### 6. Configured RustDesk for remote desktop access through the VPN.
