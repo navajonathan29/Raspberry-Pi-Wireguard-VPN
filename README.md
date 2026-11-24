@@ -1,3 +1,5 @@
+
+
 # Raspberry Pi Secure Remote Access VPN
 
 ## Project Overview
@@ -109,9 +111,37 @@ To transfer the conf file from the PiVPN server to my current machine, I used sc
 4. Once imported, the VPN tunnel will appear within the WireGuard application and can be enabled when needed.
 
   
-### 4. Configured router port forwarding.
-### 5. Established a remote VPN connection.
-### 6. Configured RustDesk for remote desktop access through the VPN.
+### 4. Configuring router port forwarding.  
+To allow remote client devices to reach the WireGuard VPN server from outside the home network, I configured a port-forwarding rule on my router.  
+
+Port forwarding directs incoming traffic on a designated port to the Raspberry Pi VPN server on the local network. This allows external WireGuard clients to initiate a connection to the VPN server without exposing unrelated services on the network.  
+
+1. Access the router's administrative interface.  
+2. Navigate to the port-forwarding configuration settings.  
+3. Create a port-forwarding rule for the WireGuard VPN server, directing incoming UDP traffic on port 51820 to the Raspberry Pi's local IP address.  
+4. Save and apply the configuration.  
+
+#### Port-Forwarding Configuration  
+
+ | Setting | Value |
+ | --- | --- |
+ | Service | WireGuard |
+ | Protocol | UDP |
+ | External Port | 51820 |
+ | Internal Port | 51820 |
+ | Destination IP | Raspberry Pi's local IP address |
+ 
+ - Security Consideration: Port forwarding exposes the designated service to incoming traffic from the internet. The forwarding rule was limited to the WireGuard service rather than exposing administrative services such as SSH or Remote Desktop directly to the internet.
+
+### 5. Established a remote VPN connection.  
+After configuring port forwarding and generating the client configuration file, you need to test the WireGuard connection by being on a different network. In this case, I disconnected from the Wi-Fi and connected to my phone's hotspot so I can verify that the WireGuard tunnel could be established outside the local network.  
+
+1. Open the WireGuard application on the client device.  
+2. Select the previously imported VPN tunnel.  
+3. Activate the tunnel to initiate the connection to the PiVPN server.  
+4. Verify that the connection is established and that the client is communicating through the VPN tunnel.  
+
+### 6. Configured RustDesk for remote desktop access through the VPN.  
 
 ## Testing and Validation
 
