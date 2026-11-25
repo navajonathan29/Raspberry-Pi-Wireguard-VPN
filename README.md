@@ -1,6 +1,7 @@
-
-
-# Raspberry Pi Secure Remote Access VPN
+<h1 align="center">Raspberry Pi Secure Remote Access VPN</h1>
+<p align="center">
+  <img width="658" height="330" alt="image" src="https://github.com/user-attachments/assets/1cbb1663-f723-42c1-8be2-30325057b87b" />
+</p>
 
 ## Project Overview
 
@@ -141,7 +142,33 @@ After configuring port forwarding and generating the client configuration file, 
 3. Activate the tunnel to initiate the connection to the PiVPN server.  
 4. Verify that the connection is established and that the client is communicating through the VPN tunnel.  
 
+Once the tunnel has been activated, you should be able to ping the Pi through its Wireguard interface.  
+
+On the Pi run the command shown here to get the IP of the pi that WireGuard has provided:
+
+<img width="890" height="46" alt="Screenshot 2026-11-24 175703" src="https://github.com/user-attachments/assets/12cf27b5-f189-402e-87c6-270b5d092e25" />  
+
+While the client machine is connected to VPN tunnel, ping the Pi to confirm the Pi and the Client device is now officially in the same network.  
+
+<img width="620" height="167" alt="image" src="https://github.com/user-attachments/assets/d93ac406-d524-4bcb-bba7-d8549cb4c1ae" />  
+  
+We should also see the IP given to the client machine by running the following command:  
+  
+<img width="667" height="51" alt="image" src="https://github.com/user-attachments/assets/3a000cd8-b958-4945-901c-468e5b81783e" />
+  
 ### 6. Configured RustDesk for remote desktop access through the VPN.  
+Now that the client device is connected to the home network, we should now be able to remote into our home desktop using rustdesk.  
+
+1. Install [rustdesk](https://rustdesk.com/) on both the client device and the device you want to remote into.  
+2. On the device you want to remote into, go to security settings and enable password authentication on the client device and set your desired password.
+  
+<img width="916" height="562" alt="image" src="https://github.com/user-attachments/assets/bc388bc4-0b98-4cc6-a5b4-0ba2e30d7f2c" />  
+  
+3. On the client device, open rustdesk and enter the private IP of the device you want to remote into.
+  
+<img width="472" height="247" alt="image" src="https://github.com/user-attachments/assets/7dc8dc98-5171-4a24-9a22-d1cd4099c9f0" />
+
+Now that we have successfully remoted into our desired machine, we can now securely work on our homelab from anywhere with internet connection.  
 
 ## Testing and Validation
 
